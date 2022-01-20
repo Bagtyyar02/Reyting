@@ -1,0 +1,184 @@
+﻿<UserControl xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             x:Class="TileBar_from_code.View.SubCategory1View"
+             mc:Ignorable="d">
+    <Grid Background="Azure">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*" />
+            <RowDefinition>
+                
+            </RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <dxg:GridControl ItemsSource="{Binding Chart_Model}"
+                         SelectedItem="{Binding selected_teacher}"
+                         
+                         AutoGenerateColumns="AddNew">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand PassEventArgsToCommand="True"
+                                       Command="{Binding EditCommand}"
+                                       EventName="MouseDoubleClick">
+                    <dxmvvm:EventToCommand.EventArgsConverter>
+                        <dx:EventArgsToDataRowConverter />
+                    </dxmvvm:EventToCommand.EventArgsConverter>
+                </dxmvvm:EventToCommand>
+            </dxmvvm:Interaction.Behaviors>
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem SummaryType="Count"
+                                     Alignment="Right" />
+
+            </dxg:GridControl.TotalSummary>
+            <dxg:GridControl.View>
+            <dxg:TableView AllowMoveColumnToDropArea="False"
+                           ShowTotalSummary="True"
+                           ShowIndicator="False"
+                           ShowHorizontalLines="True"
+                               AllowEditing="False">
+                
+                <dxg:TableView.ColumnMenuCustomizations>
+                    <dxb:RemoveBarItemAndLinkAction ItemName="{x:Static dxg:DefaultColumnMenuItemNames.GroupBox }" />
+                    <dxb:RemoveBarItemAndLinkAction ItemName="{x:Static dxg:DefaultColumnMenuItemNames.SearchPanel }" />
+                </dxg:TableView.ColumnMenuCustomizations>
+            </dxg:TableView>
+            </dxg:GridControl.View>
+            <dxg:GridColumn FieldName="t/b"
+                            x:Name="tertip"
+                            UnboundType="Decimal"
+                            SortFieldName="Completion">
+
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="teacher_name"
+                            Header="Ady"
+                            IsSmart="True" />
+            <dxg:GridColumn IsSmart="True"
+                            FieldName="Completion"
+                            Header="% Complete"
+                            MinWidth="200"
+                            Width="304"
+                            SortOrder="Ascending"
+                            SortIndex="0">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <dxe:ProgressBarEdit Value="{Binding RowData.Row.teacher_point}"
+                                             ContentDisplayMode="Value"
+                                             DisplayFormatString="{}{0}%"
+                                             ShowBorder="False"
+                                             Height="18" />
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+            </dxg:GridColumn>
+            
+        </dxg:GridControl>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <dxc:ChartControl Margin="30 10 15 10 " >
+            <dxc:ChartControl.CrosshairOptions>
+                <dxc:CrosshairOptions ShowArgumentLabels="True"
+                                      ShowValueLabels="True"
+                                      ShowValueLine="True" />
+            </dxc:ChartControl.CrosshairOptions>
+            <dxc:ChartControl.Titles>
+                <dxc:Title Content="Ýumuşlar"
+                           HorizontalAlignment="Center" />
+            </dxc:ChartControl.Titles>
+            
+            <dxc:XYDiagram2D>
+
+                <dxc:XYDiagram2D.AxisY>
+                    <dxc:AxisY2D>
+                        <dxc:AxisY2D.WholeRange>
+
+                            <dxc:Range MinValue="0"
+                                       SideMarginsValue="10">
+                                <dxc:Range.MaxValue>
+                                    <System:Double>100</System:Double>
+                                </dxc:Range.MaxValue>
+
+                            </dxc:Range>
+                        </dxc:AxisY2D.WholeRange>
+                    </dxc:AxisY2D>
+                </dxc:XYDiagram2D.AxisY>
+                 <dxc:XYDiagram2D.AxisX>
+                        <dxc:AxisX2D>
+                            <dxc:AxisX2D.WholeRange>
+                                <dxc:Range MaxValue="5"/>
+                            </dxc:AxisX2D.WholeRange>
+                        </dxc:AxisX2D>
+                    </dxc:XYDiagram2D.AxisX>
+
+                    <dxc:BarSideBySideSeries2D  DataSource="{Binding selected_teacher.tasks, UpdateSourceTrigger=PropertyChanged}"
+                                                DisplayName="birzatlar"
+                                                ArgumentDataMember="task_name"
+                                                ValueDataMember="task_point"
+                                                LabelsVisibility="True"
+                                                LegendTextPattern="{}{A}{S}{A}: {V}"
+                                                CrosshairLabelPattern="${V:f2}% ">
+                        <dxc:BarSideBySideSeries2D.Label>
+                            <dxc:SeriesLabel TextPattern="{}{V}%"
+                                             dxc:BarSideBySideSeries2D.LabelPosition="Center">
+                                
+                            </dxc:SeriesLabel>
+                                
+                        </dxc:BarSideBySideSeries2D.Label>
+                        <dxc:BarSideBySideSeries2D.Model>
+                            <dxc:FlatBar2DModel />
+                        </dxc:BarSideBySideSeries2D.Model>
+                    </dxc:BarSideBySideSeries2D>
+                </dxc:XYDiagram2D>
+                <dxc:ChartControl.Legends>
+                    <dxc:Legend>
+                        <dxc:Legend.Title>
+                            <dxc:LegendTitle Content="Units Sold" />
+                        </dxc:Legend.Title>
+                        
+                    </dxc:Legend>
+                </dxc:ChartControl.Legends>
+            </dxc:ChartControl>
+            <dxc:ChartControl Grid.Column="1"
+                              Margin="15 10 30 10">
+                <dxc:SimpleDiagram2D>
+                    <dxc:PieSeries2D x:Name="series"
+                                     DisplayName="Sales"
+                                     DataSource="{Binding selected_teacher.tasks, UpdateSourceTrigger=PropertyChanged}"
+                                     ArgumentDataMember="task_name"
+                                     ValueDataMember="task_point"
+                                     LabelsVisibility="True"
+                                     LegendTextPattern="{}{A}: {V}"
+                                     HoleRadiusPercent="50">
+                        <!--region #Model-->
+                        <dxc:PieSeries2D.Model>
+                            <dxc:GlarePie2DModel />
+                        </dxc:PieSeries2D.Model>
+                        <!--endregion #Model-->
+                        <dxc:PieSeries2D.TotalLabel>
+                            <dxc:PieTotalLabel TextPattern="Total:&#x0a;{TV}" />
+                        </dxc:PieSeries2D.TotalLabel>
+                        <dxc:PieSeries2D.Label>
+                            <dxc:SeriesLabel TextPattern="{}{VP:P}"
+                                             dxc:PieSeries.LabelPosition="TwoColumns" />
+                        </dxc:PieSeries2D.Label>
+                    </dxc:PieSeries2D>
+                </dxc:SimpleDiagram2D>
+                <dxc:ChartControl.Legends>
+                    <dxc:Legend>
+                        <dxc:Legend.Title>
+                            <dxc:LegendTitle Content="Units Sold" />
+                        </dxc:Legend.Title>
+                    </dxc:Legend>
+                </dxc:ChartControl.Legends>
+            </dxc:ChartControl>
+        </Grid>
+    </Grid>
+</UserControl>

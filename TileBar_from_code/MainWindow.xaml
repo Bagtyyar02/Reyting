@@ -20,20 +20,13 @@
     <dx:ThemedWindow.Resources>
         <dxmvvm:ObjectToObjectConverter x:Key="TileColorConverter"
                                         DefaultTarget="#FF404040">
-            <dxmvvm:MapItem Source="item1"
+            <dxmvvm:MapItem Source="mugallym"
                             Target="#FF00879C" />
-            <dxmvvm:MapItem Source="item2"
+            <dxmvvm:MapItem Source="esasy"
                             Target="#FF404040" />
             <dxmvvm:MapItem Source="Employees"
                             Target="#FFCC6D00" />
-            <dxmvvm:MapItem Source="Products"
-                            Target="#FF0073C4" />
-            <dxmvvm:MapItem Source="Customers"
-                            Target="#FF404040" />
-            <dxmvvm:MapItem Source="Sales"
-                            Target="#FF3E7038" />
-            <dxmvvm:MapItem Source="Opportunities"
-                            Target="#FF404040" />
+          
         </dxmvvm:ObjectToObjectConverter>
     </dx:ThemedWindow.Resources>
     <Grid>
@@ -57,71 +50,16 @@
                 <Style TargetType="dxnav:TileBarItem">
                     <Setter Property="ShowFlyoutButton"
                             Value="False" />
-                    <Setter Property="Content"
-                            Value="{Binding ModuleTitle}" />
-                    <Setter Property="TileGlyph"
-                            Value="{Binding ImageSource}" />
                     <Setter Property="AllowGlyphTheming"
                             Value="True" />
-                    
-                    <Setter Property="FlyoutContent"
-                            Value="{Binding}" />
                     <Setter Property="Width"
                             Value="166" />
-                    <Setter Property="FlyoutContentTemplate">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <dxnav:TileBar x:Name="customTileBar"
-                                               ItemsSource="{Binding FilterTreeViewModel.CustomFilters}"
-                                               Tag="{Binding FilterTreeViewModel.NavigateCommand}">
-                                    
-                                    <dxnav:TileBar.ItemContainerStyle>
-                                        <Style TargetType="dxnav:TileBarItem">
-                                            <Setter Property="Height"
-                                                    Value="40" />
-                                            <Setter Property="Content"
-                                                    Value="{Binding Name}" />
-                                            <Setter Property="VerticalContentAlignment"
-                                                    Value="Top" />
-                                            <Setter Property="Background"
-                                                    Value="White" />
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                            <Setter Property="FontSize"
-                                                    Value="12" />
-                                            <Setter Property="dxmvvm:Interaction.BehaviorsTemplate">
-                                                <Setter.Value>
-                                                    <DataTemplate>
-                                                        <ItemsControl>
-                                                            <dxmvvm:EventToCommand EventName="MouseDown"
-                                                                                   Command="{Binding ElementName=customTileBar, Path=Tag}" />
-                                                           
-                                                        </ItemsControl>
-                                                    </DataTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </dxnav:TileBar.ItemContainerStyle>
-                                    <dxnav:TileBar.GroupHeaderStyle>
-                                        <Style TargetType="dxnavi:TileBarGroupHeader">
-                                            <Setter Property="Foreground"
-                                                    Value="White" />
-                                        </Style>
-                                    </dxnav:TileBar.GroupHeaderStyle>
-                                </dxnav:TileBar>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
+                    
                 </Style>
             </dxnav:TileBar.ItemContainerStyle>
             <dxnav:TileBar.GroupStyle>
                 <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name, Converter={dxmvvm:CriteriaOperatorConverter Expression=Upper(This)}}"
-                                       Margin="9,28,0,5" />
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
+             
                     <GroupStyle.Panel>
                         <ItemsPanelTemplate>
                             <dxnavi:TileBarItemsPanel Orientation="Horizontal" />
@@ -130,19 +68,19 @@
                 </GroupStyle>
             </dxnav:TileBar.GroupStyle>
             <dxnav:TileBarItem Content="Mugallym goş"
-                               x:Name="item1"
+                               x:Name="mugallym"
                                Background="DarkOrange"
-                               Command="{Binding item1clicked}"
+                               Command="{Binding mugallymclicked}"
                                TileGlyph="{dx:DXImage SvgImages/HybridDemoIcons/Tiles/HybridDemo_Employees.svg}" />
             <dxnav:TileBarItem Content="Esasy penjire"
                               ColorMode="Standard"
                                Background="DarkCyan"
-                               Command="{Binding item2clicked}"
+                               Command="{Binding esasyclicked}"
                                TileGlyph="{dx:DXImage SvgImages/HybridDemoIcons/Tiles/HybridDemo_Dashboard.svg}" />
             <dxnav:TileBarItem Content="Ýumuşlar"
                                ColorMode="Standard"
                                Background="Gray"
-                               Command="{Binding item3clicked}"
+                               Command="{Binding yumusclicked}"
                                TileGlyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Task.svg}"
                                AllowGlyphTheming="True" />
         </dxnav:TileBar>

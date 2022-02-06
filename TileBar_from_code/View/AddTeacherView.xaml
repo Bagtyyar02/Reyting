@@ -13,8 +13,7 @@
              xmlns:ViewModel="clr-namespace:TileBar_from_code.ViewModel"
              xmlns:View="clr-namespace:TileBar_from_code.View"
              x:Class="TileBar_from_code.View.AddTeacherView"
-             mc:Ignorable="d"
-             >
+             mc:Ignorable="d">
     <UserControl.DataContext>
         <ViewModel:ChartViewModel />
     </UserControl.DataContext>
@@ -70,10 +69,7 @@
                                 Value="14" />
                     </Style>
                 </dxlc:LayoutControl.Resources>
-                <dxmvvm:Interaction.Behaviors>
-                    <dxmvvm:EventToCommand Event="{x:Static Binding.SourceUpdatedEvent}"
-                                           Command="{Binding UpdateCommand}" />
-                </dxmvvm:Interaction.Behaviors>
+               
                 <dxlc:LayoutGroup Orientation="Horizontal"
                                   VerticalAlignment="Top">
                     <dxe:ImageEdit EditValue=""
@@ -91,7 +87,9 @@
                         <dxlc:LayoutGroup Orientation="Vertical"
                                           Style="{StaticResource InnerLayoutGroup}">
                             <dxlc:LayoutItem Label="Ady">
-                                <dxe:TextEdit EditValue="{Binding tbl_teacher.teacher_name,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" />
+                                <dxe:TextEdit 
+                                    x:Name="teacher_name"
+                                    EditValue="{Binding tbl_teacher.teacher_name,  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" />
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="Familiyasy">
                                 <dxe:TextEdit EditValue="{Binding tbl_teacher.teacher_surname, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" />
@@ -99,30 +97,18 @@
                             <dxlc:LayoutItem Label="Fakultedi">
                                 <dxe:ComboBoxEdit EditValue="{Binding Entity.Prefix, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
                                                   IsTextEditable="False"
-                                                  ItemsSource="Aman " />
+                                                  SelectedItem="{Binding s_index}"
+                                                  DisplayMember="faculty_name"
+                                                  ItemsSource="{Binding faculties}" />
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="Dersi">
                                 <dxe:TextEdit EditValue="{Binding tbl_teacher.spe_code1, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" />
                             </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup Orientation="Vertical"
-                                          Style="{StaticResource InnerLayoutGroup}">
                             <dxlc:LayoutItem Label="Kafedrasy">
                                 <dxe:TextEdit EditValue="{Binding tbl_teacher.spe_code2, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" />
                             </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="CITY">
-                                <dxe:TextEdit EditValue="{Binding entity ,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" />
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="STATE">
-                                <dxe:ComboBoxEdit EditValue="{Binding Entity.Address.State, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
-                                                  IsTextEditable="False"
-                                                  SelectedItem="{Binding selected_state}"
-                                                  ItemsSource="{Binding teacher_state}" />
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="ZIPCODE">
-                                <dxe:TextEdit EditValue="{Binding Entity.Address.ZipCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" />
-                            </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
+                    
                     </dxlc:LayoutGroup>
                     <dxlc:LayoutGroup Orientation="Vertical"
                                       Style="{StaticResource VerticalLayoutGroup}">
@@ -135,13 +121,11 @@
                         <dxlc:LayoutGroup Orientation="Vertical"
                                           Style="{StaticResource InnerLayoutGroup}">
                             <dxlc:LayoutItem Label="Öý telefony">
-                                <dxe:ButtonEdit EditValue="{Binding Entity.HomePhone, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
-                                                MaskType="RegEx"
+                                <dxe:ButtonEdit MaskType="RegEx"
                                                 Mask="\d\d-\d\d-\d\d"
                                                 AllowDefaultButton="False"
                                                 MaskCulture="">
-                                    <dxe:ButtonInfo GlyphKind="User"
-                                                    Command="{Binding Contacts.HomeCallCommand}">
+                                    <dxe:ButtonInfo GlyphKind="User">
                                         <dx:DXImage Width="16"
                                                     Height="16"
                                                     Source="{dx:DXImage SvgImages/HybridDemoIcons/Editors/HybridDemo_Home Phone.svg}" />
@@ -153,8 +137,7 @@
                                                MaskType="RegEx"
                                                 Mask="[+]\d\d\d\-\d\d-\d\d-\d\d-\d\d"
                                                 AllowDefaultButton="False">
-                                    <dxe:ButtonInfo GlyphKind="User"
-                                                    Command="{Binding Contacts.MobileCallCommand}">
+                                    <dxe:ButtonInfo GlyphKind="User">
                                         <dx:DXImage Width="16"
                                                     Height="16"
                                                     Source="{dx:DXImage SvgImages/HybridDemoIcons/Editors/HybridDemo_Mobile Phone.svg}" />
@@ -168,8 +151,7 @@
                                                 MaskIgnoreBlank="true"
                                                 InvalidValueBehavior="AllowLeaveEditor"
                                                 AllowDefaultButton="False">
-                                    <dxe:ButtonInfo GlyphKind="User"
-                                                    Command="{Binding Contacts.MailToCommand}">
+                                    <dxe:ButtonInfo GlyphKind="User">
                                         <dx:DXImage Width="16"
                                                     Height="16"
                                                     Source="{dx:DXImage SvgImages/HybridDemoIcons/Editors/HybridDemo_Email.svg}" />
@@ -177,44 +159,23 @@
                                 </dxe:ButtonEdit>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="SKYPE">
-                                <dxe:ButtonEdit EditValue="{Binding Entity.Skype, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
-                                                AllowDefaultButton="False">
-                                    <dxe:ButtonInfo GlyphKind="User"
-                                                    Command="{Binding Contacts.VideoCallCommand}">
+                                <dxe:ButtonEdit AllowDefaultButton="False">
+                                    <dxe:ButtonInfo GlyphKind="User">
                                         <dx:DXImage Width="16"
                                                     Height="16"
                                                     Source="{dx:DXImage SvgImages/HybridDemoIcons/Editors/HybridDemo_Skype.svg}" />
                                     </dxe:ButtonInfo>
                                 </dxe:ButtonEdit>
                             </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup Orientation="Vertical"
-                                          Style="{StaticResource InnerLayoutGroup}">
-                            <dxlc:LayoutItem Label="DEPARTMENT">
-                                <dxe:ComboBoxEdit EditValue="{Binding Entity.Department, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
-                                                  IsTextEditable="False"
-                                                  ItemsSource="sdasds" />
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="Derejesi">
-                                <dxe:ComboBoxEdit EditValue="{Binding Entity.Status, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
-                                                  IsTextEditable="False"
-                                                  ItemsSource="dsad" />
-                            </dxlc:LayoutItem>
                             <dxlc:LayoutItem Label="Işe gelen senesi">
-                                <dxe:DateEdit EditValue="{Binding Entity.HireDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}">
-                                    <dxe:DateEdit.StyleSettings>
-                                        <dxe:DateEditPickerStyleSettings />
-                                    </dxe:DateEdit.StyleSettings>
-                                </dxe:DateEdit>
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="DOB">
-                                <dxe:DateEdit EditValue="{Binding Entity.BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}">
+                                <dxe:DateEdit >
                                     <dxe:DateEdit.StyleSettings>
                                         <dxe:DateEditPickerStyleSettings />
                                     </dxe:DateEdit.StyleSettings>
                                 </dxe:DateEdit>
                             </dxlc:LayoutItem>
                         </dxlc:LayoutGroup>
+                       
                     </dxlc:LayoutGroup>
                     <dxe:TextEdit EditValue="{Binding tbl_teacher.teacher_description}"
                                   TextWrapping="Wrap"
@@ -246,7 +207,7 @@
                         </Style>
                     </dxlc:LayoutGroup.Resources>
                     <dxlc:LayoutItem 
-                                     dxlc:LayoutControl.TabHeader="TASKS">
+                                     dxlc:LayoutControl.TabHeader="Ýumuşlar">
                         <dxmvvm:Interaction.Behaviors>
                             <dx:WindowedDocumentUIService WindowType="dxwui:WinUIDialogWindow">
                                 <dx:WindowedDocumentUIService.WindowStyle>
@@ -258,6 +219,17 @@
                             </dx:WindowedDocumentUIService>
                         </dxmvvm:Interaction.Behaviors>
                         <dxg:GridControl ItemsSource="{Binding Tasks_per_teacher}">
+                            <dxg:GridControl.View>
+                                <dxg:TableView>
+                                    <dxg:TableView.RowStyle>
+                                        <Style TargetType="{x:Type dxg:RowControl}">
+                                            <Setter Property="MinHeight" Value="40"/>
+                                            <Setter Property="Height" Value="40"/>
+                                            <Setter Property="MinHeight" Value="30"/>
+                                        </Style>
+                                    </dxg:TableView.RowStyle>
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
                             <dxg:GridColumn FieldName="task_name"
                                             Header=" Task Name" />
                             <dxg:GridColumn FieldName="task_point"
@@ -267,8 +239,8 @@
                                     <ControlTemplate>
                                         <dxe:ProgressBarEdit Value="{Binding RowData.Row.task_point}"
                                                              ContentDisplayMode="Value"
-                                                             Maximum="100"
-                                                             DisplayFormatString="{}{0}%"
+                                                             Maximum="{Binding RowData.Row.max_point}"
+                                                            
                                                              ShowBorder="False"
                                                              Height="18">
                                             
@@ -288,30 +260,19 @@
                       HideMode="AlwaysVisible">
             <dxwui:AppBarButton Label="Save"
                                 Command="{Binding SaveAndCloseCommand}"
+                                Visibility="{Binding Text, ElementName=teacher_name, Converter={dxmvvm:StringToVisibilityConverter}}"
                                 Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Save.svg}" />
+            <dxwui:AppBarSeparator />
             <dxwui:AppBarButton Label="Cancel"
                                 Command="{Binding CloseCommand}"
                                 Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Cancel.svg}" />
             <dxwui:AppBarSeparator />
-            <dxwui:AppBarButton Label="Reports"
-                                Command="{Binding ShowProfileCommand}"
-                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Reports.svg}" />
-            <dxwui:AppBarSeparator />
-            <dxwui:AppBarButton Label="Mail Merge"
-                                Command="{Binding ShowMailMergeCommand}"
-                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Mail Merge.svg}" />
-            <dxwui:AppBarButton Label="Task"
-                                Command="{Binding AddTaskCommand}"
-                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Task.svg}" />
-            <dxwui:AppBarButton Label="Meeting"
-                                Command="{Binding ShowMeetingCommand}"
-                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Meeting.svg}" />
-            <dxwui:AppBarButton Label="Note"
-                                
-                                Command="{Binding EmployeeEvaluationsDetails.NewCommand}"
-                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Note.svg}"
-                                IsEllipseEnabled="False"
-                                AllowGlyphTheming="True" />
+            <dxwui:AppBarButton Label="Saýlanany poz"
+                                Command="{Binding TaskDeleteCommand}"
+                                CommandParameter="{Binding SelectedEntity}"
+                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Delete.svg}" />
+            
+           
         </dxwui:AppBar>
     </Grid>
 </UserControl>

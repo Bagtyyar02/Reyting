@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TileBar_from_code.Model.GridModel
+﻿namespace TileBar_from_code.Model.GridModel
 {
     class Tasks_model
     {
@@ -13,7 +7,7 @@ namespace TileBar_from_code.Model.GridModel
         public string task_code { get; set; }
         public decimal task_point { get; internal set; }
         public decimal task_max_point { get; set; }
-       
+
         // public string task_point { get; set; }
     }
 }

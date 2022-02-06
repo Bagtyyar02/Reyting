@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TileBar_from_code.Model
+﻿namespace TileBar_from_code.Model
 {
-   public  class DataPoint
+    public class DataPoint
     {
         public string Argument { get; set; }
         public double Value { get; set; }

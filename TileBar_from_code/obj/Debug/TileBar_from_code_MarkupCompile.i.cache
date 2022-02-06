@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Wpf projects\TileBar_from_code\TileBar_from_code\App.xaml
-111370143249
+11578110452
 
-311165945597
-34-1281237664
-MainWindow.xaml;SplashScreens\FluentSplashScreen\DxSplashScreen.xaml;Themes\ListView.xaml;Themes\Shared.xaml;View\AddTaskView.xaml;View\AddTeacherView.xaml;View\AppLoginWindow.xaml;View\CategoryView.xaml;View\Default.xaml;View\SubCategory1View.xaml;View\Tasks.xaml;
+331341799842
+34-1064823174
+MainWindow.xaml;SplashScreens\FluentSplashScreen\DxSplashScreen.xaml;Themes\ListView.xaml;Themes\Shared.xaml;View\AddTaskView.xaml;View\AddTeacherView.xaml;View\AppLoginWindow.xaml;View\CategoryView.xaml;View\Default.xaml;View\MainView.xaml;View\Tasks.xaml;
 
-False
+True
 

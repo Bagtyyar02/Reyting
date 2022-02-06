@@ -5,11 +5,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
-using System.Linq;
 using System.Windows;
 
 using TileBar_from_code.ConnectionHelper;
@@ -58,12 +54,12 @@ namespace TileBar_from_code
             var splashScreenViewModel = new DXSplashScreenViewModel() { Title = "Tituki" };
             //DXDesignTimeHelper.SetBackground(Des, "#FF0073FF");
             SplashScreenManager.Create(() => new DxSplashScreen(), splashScreenViewModel).ShowOnStartup();
-           // View.AppLoginWindow _wndLogin = new View.AppLoginWindow();
+            // View.AppLoginWindow _wndLogin = new View.AppLoginWindow();
             read_file();
             Connect();
             //_wndLogin.DataContext = new ViewModel.LoginViewModel();
             //_wndLogin.ShowDialog();
-           
+
         }
         #endregion
 
@@ -124,7 +120,7 @@ namespace TileBar_from_code
                     //  Application.Exit();
                 }
             }
-            
+
 
 
         }

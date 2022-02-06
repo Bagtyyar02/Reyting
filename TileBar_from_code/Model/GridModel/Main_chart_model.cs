@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using TileBar_from_code.Model.GridModel;
 
 namespace TileBar_from_code.Model
@@ -11,7 +6,7 @@ namespace TileBar_from_code.Model
     class Main_chart_model
     {
         #region properties
-       public string teacher_name { get; set; }
+        public string teacher_name { get; set; }
         public decimal teacher_point { get; set; }
         public decimal teacher_total_point { get; set; }
         public ObservableCollection<Tasks_model> tasks { get; set; }

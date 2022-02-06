@@ -1,13 +1,9 @@
 ﻿using DevExpress.Xpo;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TileBar_from_code.Model
 {
-    class tbl_br_tasks:XPCustomObject
+    class tbl_br_tasks : XPCustomObject
     {
         #region properties
         [Persistent]

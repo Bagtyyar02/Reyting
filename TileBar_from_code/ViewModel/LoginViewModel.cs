@@ -1,5 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using System;
 using System.Windows;
 
 namespace TileBar_from_code.ViewModel
@@ -12,8 +11,8 @@ namespace TileBar_from_code.ViewModel
         public DelegateCommand cmdClose { get; set; }
         public LoginViewModel()
         {
-            cmdLogin = new DelegateCommand(()=>Login());
-            cmdClose = new DelegateCommand(()=>Close());
+            cmdLogin = new DelegateCommand(() => Login());
+            cmdClose = new DelegateCommand(() => Close());
         }
 
         private void Close()

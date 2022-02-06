@@ -1,8 +1,4 @@
 ﻿using DevExpress.Mvvm;
-using DevExpress.Xpf.Charts;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace TileBar_from_code.ViewModel
 {

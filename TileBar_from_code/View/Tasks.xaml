@@ -17,7 +17,6 @@
 
     <UserControl.Resources>
 
-      
         <Style x:Key="completionColumnTotalSummaryContentStyle"
                TargetType="{x:Type ContentPresenter}">
             <Setter Property="ContentTemplate">
@@ -51,7 +50,7 @@
         </ControlTemplate>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <ViewModel:TasksViewModel />
+        <ViewModel:MainViewModel />
     </UserControl.DataContext>
 
     <dxmvvm:Interaction.Behaviors>
@@ -73,36 +72,26 @@
                    Style="{StaticResource TextBlockTitleBlueStyle}" />
         <dxwui:AppBar DockPanel.Dock="Bottom"
                       HideMode="AlwaysVisible">
-            <dxwui:AppBarButton Label="New"
-                                Command="{Binding NewCommand}"
+            <dxwui:AppBarButton Label="Täze ýumuş goş"
+                                Command="{Binding AddTaskCommand}"
                                 Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_New.svg}" />
-            <dxwui:AppBarButton Label="Edit"
-                                Command="{Binding EditCommand}"
-                                CommandParameter="{Binding SelectedEntity}"
-                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Edit.svg}" />
-            <dxwui:AppBarButton Label="Delete"
-                                Command="{Binding DeleteCommand}"
+            <dxwui:AppBarSeparator />
+            <dxwui:AppBarButton Label="Saýlanany poz"
+                                Command="{Binding TaskDeleteCommand}"
                                 CommandParameter="{Binding SelectedEntity}"
                                 Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Delete.svg}" />
-            <dxwui:AppBarSeparator />
-            <dxwui:AppBarButton Label="Print"
-                                Command="{Binding ShowPrintPreviewCommand}"
-                                CommandParameter="{Binding ElementName=tableView}"
-                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Print.svg}" />
+           
+          
         </dxwui:AppBar>
 
         <dxg:GridControl x:Name="gridControl"
                          Margin="20,0,42,2"
                          ItemsSource="{Binding __tbl_br_tasks}"
-                         SelectedItem="{Binding SelectedEntity}"
+                         SelectedItem="{Binding selected_task}"
+                        AutoGenerateColumns="None"
                          ShowBorder="True"
                          FontSize="12">
-            <dxmvvm:Interaction.Behaviors>
-                <dxmvvm:EventToCommand PassEventArgsToCommand="True"
-                                       Command="{Binding EditCommand}"
-                                       EventName="MouseDoubleClick"
-                                       EventArgsConverter="{dx:EventArgsToDataRowConverter}" />
-            </dxmvvm:Interaction.Behaviors>
+           
             <dxg:GridControl.TotalSummary>
                 <dxg:GridSummaryItem SummaryType="Count"
                                      FieldName="Completion"
@@ -113,47 +102,48 @@
             </dxg:GridControl.GroupSummary>
             <dxg:GridControl.View>
                 <dxg:TableView x:Name="tableView"
-                               AllowEditing="False"
-                               ShowTotalSummary="True"
                                AllowPerPixelScrolling="True"
-                               AutoWidth="True"
-                               ShowIndicator="False"
+                               ShowTotalSummary="True"
+                               AllowEditing="False"
+                               
                                ShowGroupPanel="False"
-                               ShowSearchPanelMode="Never"
-                               NavigationStyle="Row"
-                               ShowFilterPanelMode="Never"
-                               AllowMoveColumnToDropArea="False">
-
+                               AllowResizing="True">
+                    <dxg:TableView.RowStyle>
+                        <Style TargetType="dxg:RowControl">
+                           
+                            <Setter Property="Height"
+                                    Value="30" />
+                            
+                        </Style>
+                    </dxg:TableView.RowStyle>
+                 
                 </dxg:TableView>
             </dxg:GridControl.View>
+
             <dxg:GridColumn FieldName="task_name"
-                            Header="Assigned To"
+                            Header="Ýumuş ady"
                             ReadOnly="True"
-                            Width="180" />
+                           
+                            Width="Auto">
+                
+            </dxg:GridColumn>
             <dxg:GridColumn FieldName="task_max_point"
-                            Header="Owned By"
+                            Header="Ýumuş üçin bal"
+                            
                             ReadOnly="True"
-                            Width="176" />
-            <dxg:GridColumn IsSmart="True"
-                            FieldName="Subject"
-                            Width="355" />
-            
-            <dxg:GridColumn IsSmart="True"
-                            FieldName="DueDate"
-                            SortIndex="0"
-                            SortOrder="Descending"
-                            Width="115" />
-            <dxg:GridColumn IsSmart="True"
-                            FieldName="Completion"
-                            Header="% Complete"
-                            TotalSummaryContentStyle="{StaticResource completionColumnTotalSummaryContentStyle}"
-                            Width="184"
-                            MinWidth="80">
+                            Width="176" >
                 <dxg:GridColumn.EditSettings>
-                    <dxe:ProgressBarEditSettings ContentDisplayMode="Value"
-                                                 DisplayFormat="{}{0}%" />
+                    <dxe:TextEditSettings TextWrapping="Wrap" 
+                                          HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
+            <dxg:GridColumn IsSmart="True"
+                            FieldName="task_start_date"
+                            Header="Ýumuş goşulan wagty"
+                            Width="355" />
+            
+
+       
         </dxg:GridControl>
     </DockPanel>
 </UserControl>

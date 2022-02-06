@@ -5,42 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              mc:Ignorable="d">
     <dxmvvm:Interaction.Behaviors>
         <dxwui:WinUIDialogService />
     </dxmvvm:Interaction.Behaviors>
+    <UserControl.Resources>
+      
+        <dxmvvm:ObjectToObjectConverter x:Key="TaskStateConverter">
+            <dxmvvm:MapItem Source="success" Target="Ýumuş üstünlikli goşuldy"/>
+            <dxmvvm:MapItem Source="failure" Target="Ýumuş goşmakda näsazlyk ýüze çykdy"/>
+            <dxmvvm:MapItem Source="default" Target="Ýumuş goş"/>
+        </dxmvvm:ObjectToObjectConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
     <DockPanel Width="850">
         <StackPanel DockPanel.Dock="Top"
                     Orientation="Horizontal"
                     HorizontalAlignment="Left">
-            <TextBlock Text="Edit Task"
+                <StackPanel.Resources>
+                    
+                </StackPanel.Resources>
+                <TextBlock Text="{Binding State, Converter={StaticResource TaskStateConverter}}"
+                    
                        FontSize="18"
-                       Margin="0,0,5,0" />
-            <TextBlock Text="{Binding Entity.Owner}"
-                       FontSize="18"
-                       Foreground="#FF646464" />
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Bottom"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Height"
-                            Value="25" />
-                    <Setter Property="Width"
-                            Value="76" />
-                    <Setter Property="Padding"
-                            Value="0" />
-                </Style>
-            </StackPanel.Resources>
-            <Button Content="Save"
-                    Command="{Binding SaveAndCloseCommand}"
-                    Margin="0,0,16,0" />
-            <Button Content="Cancel"
-                    Command="{Binding CloseCommand}" />
-        </StackPanel>
+                          
+                       Margin="0,0,5,0"/>
+
+
+            </StackPanel>
+      
         <dxlc:LayoutControl Orientation="Horizontal"
                             ItemSpace="57"
                             Margin="0,28"
@@ -71,120 +72,73 @@
                               MaxWidth="390">
                 <dxlc:LayoutGroup Orientation="Vertical"
                                   Style="{StaticResource InnerLayoutGroup}">
-                    <dxlc:LayoutItem Label="OWNER">
-                        <dxe:ComboBoxEdit IsTextEditable="False"
-                                          EditValue="{Binding Entity.OwnerId, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
-                                          ValueMember="Id"
-                                          ItemsSource="{Binding LookUpEmployees.Entities}"
-                                          AllowUpdateTwoWayBoundPropertiesOnSynchronization="False" />
+                    <dxlc:LayoutItem Label="Işiň ady">
+                            <dxe:TextEdit 
+                                x:Name="task_name"
+                              
+                                Text="{Binding tasks_.task_name, UpdateSourceTrigger=PropertyChanged ,NotifyOnSourceUpdated=True}"
+                                          VerticalContentAlignment="Top"
+                                          TextWrapping="Wrap" />
                     </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="ASSIGNED TO">
-                        <dxe:ComboBoxEdit IsTextEditable="False"
-                                          EditValue="{Binding Entity.AssignedEmployeeId, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
-                                          ValueMember="Id"
-                                          ItemsSource="{Binding LookUpEmployees.Entities}"
-                                          AllowUpdateTwoWayBoundPropertiesOnSynchronization="False" />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="LINKED TO">
-                        <dxe:ComboBoxEdit IsTextEditable="False"
-                                          EditValue="{Binding Entity.CustomerEmployeeId, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
-                                          ValueMember="Id"
-                                          ItemsSource="{Binding LookUpCustomerEmployees.Entities}"
-                                          AllowUpdateTwoWayBoundPropertiesOnSynchronization="False" />
-                    </dxlc:LayoutItem>
-                </dxlc:LayoutGroup>
-                <dxlc:LayoutGroup Orientation="Vertical"
-                                  Style="{StaticResource InnerLayoutGroup}">
-                    <dxlc:LayoutItem Label="START DATE">
-                        <dxe:DateEdit x:Name="startDate"
-                                      EditValue="{Binding Entity.StartDate, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}">
-                            <dxe:DateEdit.StyleSettings>
-                                <dxe:DateEditPickerStyleSettings />
-                            </dxe:DateEdit.StyleSettings>
-                        </dxe:DateEdit>
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="DUE DATE">
-                        <dxe:DateEdit x:Name="dueDate"
-                                      EditValue="{Binding Entity.DueDate, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
-                                      MinValue="{Binding ElementName=startDate, Path=EditValue}">
-                            <dxe:DateEdit.StyleSettings>
-                                <dxe:DateEditPickerStyleSettings />
-                            </dxe:DateEdit.StyleSettings>
-                        </dxe:DateEdit>
-                    </dxlc:LayoutItem>
-                </dxlc:LayoutGroup>
-                <dxlc:LayoutGroup Orientation="Vertical"
-                                  Style="{StaticResource InnerLayoutGroup}">
-                    <dxlc:LayoutItem Label="STATUS">
-                        <dxe:ComboBoxEdit EditValue="{Binding Entity.Status, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
-                                          IsTextEditable="False"
-                                          ApplyItemTemplateToSelectedItem="True"
-                                          ItemsSource="" />
+                    <dxlc:LayoutItem Label="Işiň baly">
+                        <dxe:TextEdit MaskType="Numeric"
+                                          Text="{Binding tasks_.task_max_point, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
+                                      
+                                          Mask="n0" />
 
                     </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="PRIORITY">
-                        <dxe:ComboBoxEdit EditValue="{Binding Entity.Priority, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
-                                          IsTextEditable="False"
-                                          ApplyItemTemplateToSelectedItem="True"
-                                          ItemsSource="" />
-                    </dxlc:LayoutItem>
+                  
                 </dxlc:LayoutGroup>
+                <dxlc:LayoutGroup Orientation="Vertical"
+                                  Style="{StaticResource InnerLayoutGroup}">
+                    <dxlc:LayoutItem Label="Ýumuş goşulan senesi">
+                        <dxe:DateEdit x:Name="startDate"
+                                      
+                                      EditValue="{Binding TaskDate, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}">
+                            <dxe:DateEdit.StyleSettings>
+                                <dxe:DateEditPickerStyleSettings />
+                            </dxe:DateEdit.StyleSettings>
+                        </dxe:DateEdit>
+                    </dxlc:LayoutItem>
+                   
+                </dxlc:LayoutGroup>
+              
             </dxlc:LayoutGroup>
             <dxlc:LayoutGroup Orientation="Vertical"
                               HorizontalAlignment="Stretch">
                 <dxlc:LayoutGroup Orientation="Vertical"
                                   Style="{StaticResource InnerLayoutGroup}"
                                   Height="197">
-                    <dxlc:LayoutItem Label="SUBJECT">
-                        <dxe:TextEdit EditValue="{Binding Entity.Subject, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}" />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem Label="DESCRIPTION"
+                    
+                    <dxlc:LayoutItem Label="Ýumuş barada"
                                      VerticalAlignment="Stretch"
                                      LabelVerticalAlignment="Top">
-                        <dxe:TextEdit EditValue="{Binding Entity.Description, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
+                            <dxe:TextEdit EditValue="{Binding dsadsa, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
                                       VerticalContentAlignment="Top"
                                       TextWrapping="Wrap" />
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
-                <dxlc:LayoutGroup Orientation="Horizontal">
-                    <dxlc:LayoutItem Label="REMINDER"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Center">
-                        <dxe:CheckEdit x:Name="setReminder"
-                                       EditValue="{Binding Entity.Reminder, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}" />
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutGroup Orientation="Horizontal">
-                        <dxlc:LayoutItem HorizontalAlignment="Left"
-                                         IsEnabled="{Binding ElementName=setReminder,Path=IsChecked}">
-                            <dxe:DateEdit x:Name="reminderDate"
-                                          EditValue="{Binding Entity.ReminderDateTime, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True, Mode=TwoWay}"
-                                          MinWidth="112">
-                                <dxe:DateEdit.StyleSettings>
-                                    <dxe:DateEditPickerStyleSettings />
-                                </dxe:DateEdit.StyleSettings>
-                            </dxe:DateEdit>
-                        </dxlc:LayoutItem>
-                        <dxlc:LayoutItem IsEnabled="{Binding ElementName=setReminder,Path=IsChecked}">
-                            <dxe:DateEdit Mask="hh:mm tt"
-                                          IsEnabled="{Binding ElementName=reminderDate,Path=EditValue, Converter={dxmvvm:ObjectToBooleanConverter}}"
-                                          MaskUseAsDisplayFormat="True"
-                                          EditValue="{Binding ReminderTime, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True, Mode=TwoWay}">
-                                <dxe:DateEdit.StyleSettings>
-                                    <dxe:DateEditPickerStyleSettings />
-                                </dxe:DateEdit.StyleSettings>
-                            </dxe:DateEdit>
-                        </dxlc:LayoutItem>
-                    </dxlc:LayoutGroup>
-                </dxlc:LayoutGroup>
-                <dxlc:LayoutItem Label="% COMPLETE">
-                    <dxe:TrackBarEdit Minimum="0"
-                                      Maximum="100"
-                                      HorizontalAlignment="Stretch"
-                                      TickPlacement="None"
-                                      Value="{Binding Entity.Completion, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True, Mode=TwoWay}"
-                                      Background="White" />
-                </dxlc:LayoutItem>
+              
             </dxlc:LayoutGroup>
         </dxlc:LayoutControl>
+       
     </DockPanel>
+        <dxwui:AppBar Grid.Row="1"
+                      ItemSpacing="5"
+                      HideMode="AlwaysVisible">
+            <dxwui:AppBarButton Label="Ýatda sakla"
+                                Command="{Binding TaskSaveCommand}"
+                                Visibility="{Binding Text, ElementName=task_name,
+                                              Converter={dxmvvm:StringToVisibilityConverter}  }"
+                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Save.svg}" />
+           
+            <dxwui:AppBarSeparator />
+            <dxwui:AppBarButton Label="Red et"
+                                Command="{Binding TaskCancelCommand}"
+                                Glyph="{dx:DXImage SvgImages/HybridDemoIcons/BottomPanel/HybridDemo_Cancel.svg}"
+                                AllowGlyphTheming="True" />
+            
+          
+        </dxwui:AppBar>
+    </Grid>
 </UserControl>
